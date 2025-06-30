@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import JSZip from "jszip";
+import { motion } from "motion-v";
 
 const operations = ref(["Rename Only", "Format Only", "Both"]);
 const operation = ref("Both");
@@ -97,16 +98,16 @@ const processImages = async () => {
 
 <template>
     <UApp>
-
         <Head>
             <Title>Organify</Title>
         </Head>
         <div class="flex flex-col justify-center items-center gap-8 h-screen">
-            <div class="flex items-center gap-2">
+            <motion.div :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" class="flex items-center gap-2">
                 <img src="/organify.png" alt="organify" class="w-12 h-12" />
                 <h1 class="text-4xl font-black">Organify</h1>
-            </div>
-            <div class="space-y-2 p-4 md:p-0">
+            </motion.div>
+            <motion.div :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" :transition="{ delay: 0.2 }"
+                class="space-y-2 p-4 md:p-0">
                 <UFormField label="Select Directory" class="w-full md:w-80">
                     <UInput type="file" variant="soft" accept="image/*" multiple webkitdirectory
                         @change="handleImages" />
@@ -126,7 +127,7 @@ const processImages = async () => {
                     <UButton :label="`${isProcessing ? 'Processing...' : 'Organify'}`" :disabled="!images.length"
                         @click="processImages" block :loading="isProcessing" />
                 </div>
-            </div>
+            </motion.div>
         </div>
     </UApp>
 </template>
