@@ -2,6 +2,8 @@
 import JSZip from "jszip";
 import { motion } from "motion-v";
 
+useHead({ htmlAttrs: { lang: "en" } });
+
 const operations = ref(["Rename Only", "Format Only", "Both"]);
 const operation = ref("Both");
 
@@ -99,12 +101,19 @@ const processImages = async () => {
 <template>
     <UApp>
         <Head>
-            <Title>Organify</Title>
+            <Title>Organify - Fast Image Batch Converter, Renamer & ZIP Exporter</Title>
+            <Meta name="description" content="Fast Image Batch Converter, Renamer & ZIP Exporter" />
+            <Meta name="url" content="https://organify.vercel.app" />
         </Head>
         <div class="flex flex-col justify-center items-center gap-8 h-screen">
-            <motion.div :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" class="flex items-center gap-2">
-                <img src="/organify.png" alt="organify" class="w-12 h-12" />
-                <h1 class="text-4xl font-black">Organify</h1>
+            <motion.div :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" class="flex flex-col items-center gap-2">
+                <div class="flex items-center gap-2">
+                    <img src="/organify.png" alt="organify" class="w-12 h-12" />
+                    <h1 class="text-4xl font-black">Organify</h1>
+                </div>
+                <p class="text-base font-normal text-center">
+                    Fast Image Batch Converter, Renamer & ZIP Exporter
+                </p>
             </motion.div>
             <motion.div :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" :transition="{ delay: 0.2 }"
                 class="space-y-2 p-4 md:p-0">

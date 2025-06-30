@@ -1,0 +1,6 @@
+# robots.txt - https://support.google.com/webmasters/answer/6062608
+
+User-agent: *
+Allow: /
+
+Sitemap: https://organify.vercel.app/sitemap.xml
