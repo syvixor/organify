@@ -4,6 +4,9 @@ import { motion } from "motion-v";
 
 useHead({ htmlAttrs: { lang: "en" } });
 
+const isReady = ref(false);
+onMounted(() => isReady.value = true);
+
 const operations = ref(["Rename Only", "Format Only", "Both"]);
 const operation = ref("Both");
 
@@ -100,12 +103,13 @@ const processImages = async () => {
 
 <template>
     <UApp>
+
         <Head>
             <Title>Organify - Fast Image Batch Converter, Renamer & ZIP Exporter</Title>
             <Meta name="description" content="Fast Image Batch Converter, Renamer & ZIP Exporter" />
             <Meta name="url" content="https://organify.vercel.app" />
         </Head>
-        <div class="flex flex-col justify-center items-center gap-8 h-screen">
+        <div class="flex flex-col justify-center items-center gap-8 h-screen" v-show="isReady">
             <motion.div :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" class="flex flex-col items-center gap-2">
                 <div class="flex items-center gap-2">
                     <img src="/organify.png" alt="organify" class="w-12 h-12" />
@@ -137,6 +141,9 @@ const processImages = async () => {
                         @click="processImages" block :loading="isProcessing" />
                 </div>
             </motion.div>
+        </div>
+        <div class="flex justify-center items-center h-screen" v-show="!isReady">
+            <UButton label="Loading" color="neutral" variant="link" size="xl" loading />
         </div>
     </UApp>
 </template>
