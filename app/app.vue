@@ -103,11 +103,8 @@ const processImages = async () => {
 
 <template>
     <UApp>
-
         <Head>
             <Title>Organify - Fast Image Batch Converter, Renamer & ZIP Exporter</Title>
-            <Meta name="description" content="Fast Image Batch Converter, Renamer & ZIP Exporter" />
-            <Meta name="url" content="https://organify.vercel.app" />
         </Head>
         <div class="flex flex-col justify-center items-center gap-8 h-screen" v-show="isReady">
             <motion.div :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" class="flex flex-col items-center gap-2">
@@ -119,7 +116,7 @@ const processImages = async () => {
                     Fast Image Batch Converter, Renamer & ZIP Exporter
                 </p>
             </motion.div>
-            <motion.div :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" :transition="{ delay: 0.2 }"
+            <motion.div :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" :transition="{ delay: 0.1 }"
                 class="space-y-2 p-4 md:p-0">
                 <UFormField label="Select Directory" class="w-full md:w-80">
                     <UInput type="file" variant="soft" accept="image/*" multiple webkitdirectory
@@ -136,9 +133,12 @@ const processImages = async () => {
                     <UInput type="number" v-model.number="index" min="1" variant="soft" class="w-full"
                         :disabled="operation === 'Format Only'" />
                 </UFormField>
-                <div class="w-full md:w-80 mt-8">
+                <div class="w-full space-y-4 md:w-80 mt-8">
                     <UButton :label="`${isProcessing ? 'Processing...' : 'Organify'}`" :disabled="!images.length"
                         @click="processImages" block :loading="isProcessing" />
+                    <USeparator icon="i-lucide-arrow-big-down" />
+                    <UButton to="https://github.com/syvixor/organify" icon="i-lucide-github" label="Github"
+                        variant="soft" block />
                 </div>
             </motion.div>
         </div>
