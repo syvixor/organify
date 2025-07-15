@@ -4,7 +4,7 @@
 
 ### ✨ Technologies
 
-![](https://skills.syvixor.com/api/icons?i=ts,nuxt,tailwind)
+![](https://skills.syvixor.com/api/icons?i=ts,nuxt,motion,tailwind)
 
 ### 📋 Prerequisites
 
