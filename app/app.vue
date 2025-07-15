@@ -16,6 +16,7 @@ const format = ref("JPEG");
 const index = ref<number>(1);
 
 const isProcessing = ref(false);
+const isDone = ref(false);
 
 const handleImages = (e: Event) => {
     const target = e.target as HTMLInputElement
@@ -97,6 +98,10 @@ const processImages = async () => {
         console.error("Error during processing:", error);
     } finally {
         isProcessing.value = false
+        isDone.value = true
+        setTimeout(() => {
+            isDone.value = false
+        }, 3000);
     }
 }
 </script>
@@ -134,8 +139,10 @@ const processImages = async () => {
                         :disabled="operation === 'Format Only'" />
                 </UFormField>
                 <div class="w-full space-y-4 md:w-80 mt-8">
-                    <UButton :label="`${isProcessing ? 'Processing...' : 'Organify'}`" :disabled="!images.length"
-                        @click="processImages" block :loading="isProcessing" />
+                    <UButton :icon="`${isDone ? 'i-lucide-package-check' : 'i-lucide-package'}`"
+                        :label="`${isProcessing ? 'Processing...' : isDone ? 'Done' : 'Organify'}`"
+                        :color="`${isProcessing ? 'neutral' : isDone ? 'success' : 'primary'}`"
+                        :disabled="!images.length || isDone" @click="processImages" block :loading="isProcessing" />
                     <USeparator icon="i-lucide-arrow-big-down" />
                     <UButton to="https://github.com/syvixor/organify" icon="i-lucide-github" label="Github"
                         variant="soft" block />
