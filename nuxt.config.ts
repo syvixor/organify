@@ -3,6 +3,5 @@ export default defineNuxtConfig({
     modules: ["@nuxt/ui"],
     devtools: { enabled: false },
     colorMode: { preference: "dark" },
-    css: ["~/assets/css/global.css"],
-    ui: { fonts: false }
+    css: ["~/assets/css/global.css"]
 });
