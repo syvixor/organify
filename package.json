@@ -7,7 +7,9 @@
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "postinstall": "nuxt prepare"
+        "postinstall": "nuxt prepare",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix"
     },
     "dependencies": {
         "jszip": "^3.10.1",
@@ -16,17 +18,8 @@
     },
     "devDependencies": {
         "@iconify-json/lucide": "^1.2.59",
+        "@nuxt/eslint": "^1.7.1",
         "@nuxt/ui": "^3.3.0"
-    },
-    "overrides": {
-        "tailwindcss": "4.1.5",
-        "@tailwindcss/postcss": "4.1.5",
-        "@tailwindcss/vite": "4.1.5"
-    },
-    "resolutions": {
-        "tailwindcss": "4.1.5",
-        "@tailwindcss/postcss": "4.1.5",
-        "@tailwindcss/vite": "4.1.5"
     },
     "author": "syvixor",
     "license": "MIT"

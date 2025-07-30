@@ -2,10 +2,31 @@
 import JSZip from "jszip";
 import { motion } from "motion-v";
 
-useHead({ htmlAttrs: { lang: "en" } });
+const colorMode = useColorMode();
+const color = computed(() => colorMode.value === "dark" ? "#1F1F1F" : "#EEEEEE");
+
+useHead({
+    meta: [
+        { charset: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { key: "theme-color", name: "theme-color", content: color }
+    ],
+    link: [{ rel: "icon", href: "/favicon.ico" }],
+    htmlAttrs: { lang: "en" }
+});
+
+const title = "Organify - Fast Image Batch Converter, Renamer & ZIP Exporter";
+const description = "A fast image batch converter, renamer & ZIP exporter.";
+
+useSeoMeta({
+    title,
+    description,
+    ogTitle: title,
+    ogDescription: description
+});
 
 const isReady = ref(false);
-onMounted(() => isReady.value = true);
+onMounted(() => (isReady.value = true));
 
 const operations = ref(["Rename Only", "Format Only", "Both"]);
 const operation = ref("Both");
@@ -19,12 +40,12 @@ const isProcessing = ref(false);
 const isDone = ref(false);
 
 const handleImages = (e: Event) => {
-    const target = e.target as HTMLInputElement
-    const files = target.files
-    if (!files) return
+    const target = e.target as HTMLInputElement;
+    const files = target.files;
+    if (!files) return;
 
     images.value = Array.from(files)
-        .filter(file => file.type.startsWith("image/"))
+        .filter((file) => file.type.startsWith("image/"))
         .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 }
 
@@ -36,33 +57,33 @@ const formatConvert = async (file: File, type: string): Promise<Blob> => {
             const img = new Image();
             img.onload = () => {
                 const canvas = document.createElement("canvas");
-                canvas.width = img.width
-                canvas.height = img.height
+                canvas.width = img.width;
+                canvas.height = img.height;
                 const ctx = canvas.getContext("2d");
                 if (!ctx) return reject(new Error("Canvas context not available!"));
                 ctx.drawImage(img, 0, 0);
-                canvas.toBlob(blob => {
+                canvas.toBlob((blob) => {
                     if (blob) resolve(blob);
                     else reject(new Error("BLOB creation failed!"));
                 }, type);
-            }
-            img.onerror = reject
-            img.src = result
-        }
-        reader.onerror = reject
+            };
+            img.onerror = reject;
+            img.src = result;
+        };
+        reader.onerror = reject;
         reader.readAsDataURL(file);
     });
 }
 
 const processImages = async () => {
-    isProcessing.value = true
+    isProcessing.value = true;
     try {
         const zip = new JSZip();
         const total = images.value.length;
         const max = index.value + total - 1;
         const digits = Math.max(3, String(max).length);
 
-        const path = (images.value[0] as any)?.webkitRelativePath;
+        const path = images.value[0]?.webkitRelativePath;
         const directory = path ? path.split("/")[0] : "organified";
 
         for (let i = 0; i < total; i++) {
@@ -91,16 +112,16 @@ const processImages = async () => {
         const url = URL.createObjectURL(content);
         const anchor = document.createElement("a");
         anchor.href = url;
-        anchor.download = `${directory}.zip`
+        anchor.download = `${directory}.zip`;
         anchor.click();
         URL.revokeObjectURL(url);
     } catch (error) {
         console.error("Error during processing:", error);
     } finally {
-        isProcessing.value = false
-        isDone.value = true
+        isProcessing.value = false;
+        isDone.value = true;
         setTimeout(() => {
-            isDone.value = false
+            isDone.value = false;
         }, 3000);
     }
 }
@@ -108,13 +129,10 @@ const processImages = async () => {
 
 <template>
     <UApp>
-        <Head>
-            <Title>Organify - Fast Image Batch Converter, Renamer & ZIP Exporter</Title>
-        </Head>
-        <div class="flex flex-col justify-center items-center gap-8 h-screen" v-show="isReady">
+        <div v-show="isReady" class="flex flex-col justify-center items-center gap-8 h-screen">
             <motion.div :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" class="flex flex-col items-center gap-2">
                 <div class="flex items-center gap-2">
-                    <img src="/organify.png" alt="organify" class="w-12 h-12" />
+                    <img src="/organify.png" alt="organify" class="w-12 h-12">
                     <h1 class="text-4xl font-black">Organify</h1>
                 </div>
                 <p class="text-base font-normal text-center">
@@ -135,21 +153,21 @@ const processImages = async () => {
                         :disabled="operation === 'Rename Only'" />
                 </UFormField>
                 <UFormField label="Initial Number" class="w-full md:w-80">
-                    <UInput type="number" v-model.number="index" min="1" variant="soft" class="w-full"
+                    <UInput v-model.number="index" type="number" min="1" variant="soft" class="w-full"
                         :disabled="operation === 'Format Only'" />
                 </UFormField>
                 <div class="w-full space-y-4 md:w-80 mt-8">
                     <UButton :icon="`${isDone ? 'i-lucide-package-check' : 'i-lucide-package'}`"
                         :label="`${isProcessing ? 'Processing...' : isDone ? 'Done' : 'Organify'}`"
                         :color="`${isProcessing ? 'neutral' : isDone ? 'success' : 'primary'}`"
-                        :disabled="!images.length || isDone" @click="processImages" block :loading="isProcessing" />
+                        :disabled="!images.length || isDone" block :loading="isProcessing" @click="processImages" />
                     <USeparator icon="i-lucide-arrow-big-down" />
                     <UButton to="https://github.com/syvixor/organify" icon="i-lucide-github" label="Github"
                         variant="soft" block />
                 </div>
             </motion.div>
         </div>
-        <div class="flex justify-center items-center h-screen" v-show="!isReady">
+        <div v-show="!isReady" class="flex justify-center items-center h-screen">
             <UButton label="Loading" color="neutral" variant="link" size="xl" loading />
         </div>
     </UApp>
