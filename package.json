@@ -13,13 +13,13 @@
     },
     "dependencies": {
         "jszip": "^3.10.1",
-        "motion-v": "^1.6.1",
-        "nuxt": "^4.0.2"
+        "motion-v": "^1.7.0",
+        "nuxt": "^4.0.3"
     },
     "devDependencies": {
-        "@iconify-json/lucide": "^1.2.59",
-        "@nuxt/eslint": "^1.7.1",
-        "@nuxt/ui": "^3.3.0"
+        "@iconify-json/lucide": "^1.2.63",
+        "@nuxt/eslint": "^1.9.0",
+        "@nuxt/ui": "^3.3.2"
     },
     "author": "syvixor",
     "license": "MIT"
