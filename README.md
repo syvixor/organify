@@ -4,29 +4,31 @@
 
 ### ✨ Technologies
 
-![Technologies](https://skills.syvixor.com/api/icons?i=ts,nuxt,motion,tailwind)
+![Technologies](https://skills.syvixor.com/api/icons?i=ts,nuxt,eslint,motion,tailwind)
 
 ### 🚀 Quick Start
 
-- You have to clone the repository
-  ```bash
-  git clone https://github.com/syvixor/organify.git
+#### Clone Repo
 
-  cd organify
-  ```
+```bash
+git clone https://github.com/syvixor/organify.git
 
-- Next, You have to install the dependencies
-  ```bash
-  pnpm install # or npm install
-  ```
+cd organify
+```
 
-- Finally, run development server
+#### Install Dependencies
 
-  ```bash
-  pnpm dev # or npm run dev
-  ```
+```bash
+pnpm install # or npm install
+```
 
-All good, development server should be running on `localhost:3000`
+#### Run Development Server
+
+```bash
+pnpm dev # or npm run dev
+```
+
+All good, development server should be running on [`localhost:3000`](http://localhost:3000)
 
 ### 📜 License
 
